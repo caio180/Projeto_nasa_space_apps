@@ -162,18 +162,7 @@ Ao abrir um candidato, a plataforma mostra lado a lado com o alvo:
 
 **Requisitos:** Node.js 22.12 ou mais recente (o Vite 7 exige 20.19+ ou 22.12+). No Windows, use `npm.cmd` no lugar de `npm` se o PowerShell bloquear scripts.
 
-1. Copie `backend/.env.example` para `backend/.env` e preencha:
-
-| Variável | Valor |
-|---|---|
-| `PORT` | `4000` (porta do backend; o frontend lê daqui) |
-| `URL_API` | `https://planetarycomputer.microsoft.com/api/stac/v1` |
-| `URL_DATA_API` | `https://planetarycomputer.microsoft.com/api/data/v1` |
-| `URL_USGS_STAC` | `https://stac.astrogeology.usgs.gov/api` |
-| `URL_POWER_API` | `https://power.larc.nasa.gov/api` |
-| `URL_SOILGRIDS_API` | `https://rest.isric.org/soilgrids/v2.0` |
-| `URL_MACROSTRAT_API` | `https://macrostrat.org/api/v2` |
-| `URL_PDS_GEOSCIENCES` | `https://pds-geosciences.wustl.edu` |
+1. Copie `backend/.env.example` para `backend/.env` e preencha de acordo com o .env.example
 
 Nenhuma dessas APIs exige chave ou cadastro.
 
