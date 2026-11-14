@@ -1,0 +1,1275 @@
+/* Estilo simples, sem framework. As cores ficam em variáveis (tokens) para
+   facilitar trocar o tema quando a identidade visual do projeto for definida. */
+
+:root {
+  --fundo: #090d14;
+  --superficie: #111824;
+  --superficie-2: #182131;
+  --borda: #253046;
+  --texto: #e8edf5;
+  --texto-suave: #a0acbf;
+  --primaria: #2f6fed; /* ações e seleção (texto branco com contraste ≥ 4,5:1) */
+  --primaria-forte: #3d7cf5;
+  --primaria-suave: rgb(47 111 237 / 0.16);
+  --destaque: #e0763f; /* marca: tom "marciano" (só rótulos de Marte e destaque) */
+  --destaque-2: #7fb2ff; /* links */
+  --ok: #4cc38a;
+  --aviso: #f0b429;
+  --falha: #ef5d5d;
+  --raio: 10px;
+  --serie-terra: #4a96ea;
+  --serie-alvo: #cf6a30;
+  color-scheme: dark;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --fundo: #f2f4f8;
+    --superficie: #ffffff;
+    --superficie-2: #eef2f7;
+    --borda: #d6dde8;
+    --texto: #172033;
+    --texto-suave: #536075;
+    --primaria: #1f5fd1;
+    --primaria-forte: #2a6be0;
+    --primaria-suave: rgb(31 95 209 / 0.1);
+    --destaque: #c4581f;
+    --destaque-2: #1f5fd1;
+    --serie-terra: #1f6fd1;
+    --serie-alvo: #c4581f;
+    color-scheme: light;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--texto);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: 600;
+}
+h1 {
+  font-size: 1.25rem;
+}
+h2 {
+  font-size: 1rem;
+}
+h3 {
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+  margin: 10px 0 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+code,
+pre,
+.codigo {
+  font-family: ui-monospace, 'Cascadia Code', 'Fira Code', monospace;
+  font-size: 0.82rem;
+}
+
+a {
+  color: var(--destaque-2);
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  background: var(--superficie-2);
+  color: var(--texto);
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+  padding: 7px 9px;
+  font: inherit;
+}
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--primaria);
+  outline-offset: -1px;
+}
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--primaria);
+  outline-offset: 2px;
+}
+
+/* ---------- Layout ---------- */
+
+.app {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px 16px 40px;
+}
+
+.cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--borda);
+}
+.cabecalho h1 {
+  font-size: 1.35rem;
+  letter-spacing: 0.01em;
+}
+
+.colunas {
+  display: grid;
+  grid-template-columns: 340px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+.coluna-lateral,
+.coluna-principal {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .colunas {
+    grid-template-columns: 1fr;
+  }
+  .cabecalho {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.painel {
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  padding: 16px;
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+.painel-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.campo {
+  display: grid;
+  gap: 4px;
+}
+.campo > span {
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+}
+
+fieldset {
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  margin: 0;
+  padding: 8px 10px 10px;
+}
+legend {
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+  padding: 0 4px;
+}
+.grade-4 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+.grade-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.linha {
+  display: flex;
+  gap: 8px;
+}
+
+.alternador {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+}
+.alternador input {
+  width: auto;
+}
+
+.ajuda {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+}
+.erro-texto {
+  margin: 0;
+  color: var(--falha);
+  font-size: 0.85rem;
+}
+
+/* ---------- Botões ---------- */
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+button:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+.botao-primario,
+.botao-secundario {
+  border-radius: 6px;
+  padding: 8px 14px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.botao-primario {
+  background: var(--primaria);
+  color: #fff;
+  font-weight: 600;
+}
+.botao-primario:hover:not(:disabled) {
+  background: var(--primaria-forte);
+}
+.botao-secundario:hover:not(:disabled) {
+  border-color: var(--primaria);
+}
+.botao-primario:disabled,
+.botao-secundario:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+.botao-secundario {
+  background: var(--superficie-2);
+  color: var(--texto);
+  border-color: var(--borda);
+}
+.link {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--destaque-2);
+  font-size: 0.85rem;
+}
+
+/* ---------- Alerta de erro ---------- */
+
+.alerta {
+  border: 1px solid var(--falha);
+  background: color-mix(in srgb, var(--falha) 12%, var(--superficie));
+  border-radius: var(--raio);
+  padding: 12px 16px;
+}
+.alerta ul {
+  margin: 8px 0 0;
+  padding-left: 18px;
+}
+
+/* ---------- Relevo 3D ---------- */
+
+.relevo-3d,
+.relevo-vazio {
+  position: relative;
+  width: 100%;
+  height: min(62vh, 560px);
+  min-height: 320px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--borda);
+  background: #0b0f17;
+}
+.relevo-3d canvas {
+  display: block;
+  touch-action: none; /* gestos de toque vão para o OrbitControls, não para a rolagem */
+}
+.relevo-vazio {
+  display: grid;
+  place-items: center;
+  color: var(--texto-suave);
+  text-align: center;
+  padding: 16px;
+}
+.relevo-norte {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #e6ebf3;
+  background: rgb(0 0 0 / 0.45);
+  padding: 2px 8px;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.controles-visualizacao {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px 20px;
+}
+.campo-linha {
+  display: grid;
+  gap: 4px;
+  font-size: 0.85rem;
+}
+.campo-linha select {
+  padding: 4px 8px;
+}
+
+.controle-exagero {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  gap: 2px 10px;
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+}
+.controle-exagero label {
+  grid-column: 1 / -1;
+}
+.controle-exagero strong {
+  color: var(--texto);
+}
+.trilho-exagero {
+  position: relative;
+  padding-bottom: 14px; /* espaço para o rótulo "real" */
+}
+.trilho-exagero input {
+  width: 170px;
+  padding: 0;
+  margin: 0;
+  display: block;
+}
+/* Linha fixa no 1× (o começo do trilho; o centro do botão do slider fica ~8 px para dentro). */
+.marca-real {
+  position: absolute;
+  left: 7px;
+  top: -3px;
+  width: 2px;
+  height: 22px;
+  background: #ffd166;
+  border-radius: 1px;
+  pointer-events: none;
+}
+.marca-real span {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #ffd166;
+}
+
+.relevo-regua-legenda {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: #e6ebf3;
+  background: rgb(0 0 0 / 0.5);
+  padding: 2px 8px;
+  border-radius: 999px;
+  pointer-events: none;
+}
+.regua-amostra {
+  width: 3px;
+  height: 12px;
+  background: #ffd166;
+  border-radius: 1px;
+}
+.legenda-foto {
+  margin: 0;
+}
+
+/* ---------- Fotos de satélite ---------- */
+
+.caixa-marcar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+}
+.caixa-marcar input {
+  width: auto;
+  margin: 0;
+}
+.foto-satelite {
+  margin: 0;
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  align-content: start;
+}
+.foto-satelite .ajuda {
+  margin: 0;
+}
+.foto-moldura {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--borda);
+  background: #0b0f17;
+}
+.foto-moldura img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.foto-norte {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #e6ebf3;
+  background: rgb(0 0 0 / 0.5);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.foto-escala {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  border: 2px solid #fff;
+  border-top: none;
+  height: 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 2px #000;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  line-height: 0;
+  padding-bottom: 14px;
+}
+.foto-vazia {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  border: 1px dashed var(--borda);
+  color: var(--texto-suave);
+  font-size: 0.85rem;
+  padding: 16px;
+  text-align: center;
+}
+
+/* ---------- Equipamentos da NASA ---------- */
+
+.lista-equipamentos {
+  display: grid;
+  gap: 12px;
+}
+.equipamento {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: var(--superficie-2);
+  min-width: 0;
+}
+.equipamento h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+.equipamento p {
+  margin: 0;
+  font-size: 0.88rem;
+}
+.equipamento-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.veredito {
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 999px;
+  color: #0b0f17;
+  white-space: nowrap;
+}
+.veredito-ok {
+  background: var(--ok);
+}
+.veredito-aviso {
+  background: var(--aviso);
+}
+.barras-duplas {
+  display: grid;
+  gap: 3px;
+}
+.barras-duplas span {
+  height: 6px;
+  border-radius: 999px;
+  min-width: 2px;
+}
+.barra-terra,
+.ponto-terra {
+  background: var(--serie-terra);
+}
+.barra-alvo,
+.ponto-alvo {
+  background: var(--serie-alvo);
+}
+.ponto-terra,
+.ponto-alvo {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+.equipamento-notas {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 4px;
+  font-size: 0.84rem;
+  color: var(--texto-suave);
+}
+.equipamento-notas strong {
+  color: var(--texto);
+}
+
+.legenda-relevo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+}
+.legenda-rampa {
+  flex: 1;
+  height: 10px;
+  border-radius: 999px;
+}
+
+.estatisticas {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 12px;
+  font-size: 0.88rem;
+}
+.estatisticas dt {
+  color: var(--texto-suave);
+}
+.estatisticas dd {
+  margin: 0;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.limitacoes {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 6px;
+  font-size: 0.88rem;
+  color: var(--texto-suave);
+}
+
+@media (max-width: 600px) {
+  .painel-topo:has(.controle-exagero),
+  .painel-topo:has(.caixa-marcar) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ---------- Comparação Terra × Marte/Lua ---------- */
+
+.comparacao {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+@media (max-width: 900px) {
+  .comparacao {
+    grid-template-columns: 1fr;
+  }
+}
+.comparacao .relevo-3d {
+  height: min(48vh, 420px);
+}
+.cartao-relevo {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+.cartao-relevo-titulo {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--texto);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.tabela-rolagem {
+  overflow-x: auto;
+}
+.tabela-comparacao {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+.tabela-comparacao th,
+.tabela-comparacao td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--borda);
+  text-align: left;
+  vertical-align: top;
+}
+.tabela-comparacao thead th {
+  color: var(--texto-suave);
+  font-weight: 600;
+}
+.tabela-comparacao tbody th {
+  color: var(--texto-suave);
+  font-weight: 400;
+  white-space: nowrap;
+}
+.tabela-comparacao td {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Ficha do análogo ---------- */
+
+.ficha-alvo {
+  margin: 0 0 2px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--destaque);
+}
+.ficha-analogo h2 {
+  font-size: 1.05rem;
+}
+.selos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.selo {
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--borda);
+  background: var(--superficie-2);
+  color: var(--texto-suave);
+}
+.selo-destaque {
+  border-color: var(--destaque);
+  color: var(--destaque);
+  font-weight: 600;
+}
+.ficha-texto {
+  margin: 0;
+  display: grid;
+  gap: 4px;
+  font-size: 0.88rem;
+}
+.ficha-texto dt {
+  font-weight: 600;
+  margin-top: 6px;
+}
+.ficha-texto dd {
+  margin: 0;
+  color: var(--texto-suave);
+}
+
+/* ---------- Medidas ambientais ---------- */
+
+.tabela-ambiente tbody th {
+  white-space: normal;
+  min-width: 180px;
+}
+.dimensao {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--destaque);
+}
+.fonte-linha {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--texto-suave);
+  opacity: 0.8;
+}
+.indisponivel {
+  color: var(--texto-suave);
+  font-style: italic;
+}
+.fontes summary {
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+}
+.fontes ul {
+  margin: 8px 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 4px;
+  font-size: 0.82rem;
+  color: var(--texto-suave);
+}
+
+/* ---------- Compatibilidade ---------- */
+
+.medidores {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.medidor {
+  background: var(--superficie-2);
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: grid;
+  gap: 2px;
+}
+.medidor-valor {
+  font-size: 2rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+.medidor-rotulo {
+  font-weight: 600;
+}
+.barras {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.barra-topo {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.88rem;
+}
+.barra-trilho {
+  height: 8px;
+  background: var(--superficie-2);
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 4px 0;
+}
+.barra-preenchida {
+  height: 100%;
+  border-radius: 999px;
+}
+.nota-alta {
+  background: var(--ok);
+}
+.nota-media {
+  background: var(--aviso);
+}
+.nota-baixa {
+  background: var(--falha);
+}
+.nota-vazia {
+  background: transparent;
+}
+.barras details summary {
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+}
+.barras details p {
+  margin: 6px 0 0;
+}
+.incompatibilidades {
+  border: 1px solid var(--falha);
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: color-mix(in srgb, var(--falha) 8%, var(--superficie));
+}
+.incompatibilidades h3 {
+  margin-top: 0;
+}
+.incompatibilidades ul {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 8px;
+}
+.incompatibilidades p {
+  margin: 2px 0 0;
+  font-size: 0.88rem;
+  color: var(--texto-suave);
+}
+@media (max-width: 600px) {
+  .medidores {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Composição ---------- */
+
+.valor-impreciso {
+  color: var(--aviso);
+}
+
+/* ---------- Validação científica ---------- */
+
+.passos-metodo {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 10px;
+}
+.passos-metodo li {
+  display: grid;
+  gap: 4px;
+  padding: 10px 12px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: var(--superficie-2);
+  font-size: 0.86rem;
+}
+.passos-metodo span {
+  color: var(--texto-suave);
+}
+.caixa-ok {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid color-mix(in srgb, var(--ok) 50%, transparent);
+  background: color-mix(in srgb, var(--ok) 10%, transparent);
+  font-size: 0.86rem;
+}
+.nota-pequena {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--texto-suave);
+  margin-left: 6px;
+}
+.tabela-sensores td {
+  vertical-align: top;
+  min-width: 220px;
+}
+.tabela-sensores .sub {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+  margin-top: 2px;
+}
+
+.grafico-rugosidade {
+  margin: 8px 0 0;
+  display: grid;
+  gap: 6px;
+}
+.legenda-series {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 0.82rem;
+  color: var(--texto);
+}
+.amostra-serie {
+  display: inline-block;
+  width: 14px;
+  height: 3px;
+  border-radius: 2px;
+  vertical-align: middle;
+}
+.amostra-serie.serie-terra {
+  background: var(--serie-terra);
+}
+.amostra-serie.serie-alvo {
+  background: var(--serie-alvo);
+}
+.grafico-area {
+  position: relative;
+}
+.grafico-area svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.grafico-area .grade line {
+  stroke: var(--borda);
+  stroke-width: 1;
+}
+.grafico-area .grade,
+.grafico-area text.grade {
+  fill: var(--texto-suave);
+  font-size: 11px;
+}
+.grafico-area .titulo-eixo {
+  fill: var(--texto-suave);
+  font-size: 11px;
+}
+.grafico-area .mira {
+  stroke: var(--texto-suave);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+.grafico-area .linha-serie {
+  fill: none;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.grafico-area .ponto-serie {
+  stroke: var(--superficie); /* anel de 2 px da superfície entre marcas sobrepostas */
+  stroke-width: 2;
+}
+.grafico-area .serie-terra .linha-serie {
+  stroke: var(--serie-terra);
+}
+.grafico-area .serie-terra .ponto-serie {
+  fill: var(--serie-terra);
+}
+.grafico-area .serie-alvo .linha-serie {
+  stroke: var(--serie-alvo);
+}
+.grafico-area .serie-alvo .ponto-serie {
+  fill: var(--serie-alvo);
+}
+.grafico-area .rotulo-direto {
+  fill: var(--texto);
+  font-size: 11px;
+  font-weight: 600;
+}
+.grafico-area rect:focus {
+  outline: none;
+}
+.dica-grafico {
+  position: absolute;
+  top: 4px;
+  transform: translateX(-50%);
+  display: grid;
+  gap: 2px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--borda);
+  background: var(--superficie);
+  font-size: 0.78rem;
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.3);
+}
+
+/* Trecho sem dado do sensor, preenchido só no desenho 3D */
+.relevo-buracos-legenda {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 60%;
+  font-size: 0.75rem;
+  color: #e6ebf3;
+  background: rgb(0 0 0 / 0.5);
+  padding: 2px 8px;
+  border-radius: 999px;
+  pointer-events: none;
+}
+.buraco-amostra {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background: #555a63;
+  border: 1px solid #8b93a1;
+}
+
+/* Base científica da ficha do análogo */
+.selo-estudado {
+  border-color: color-mix(in srgb, var(--ok) 60%, transparent);
+}
+.selo-proposto {
+  border-color: color-mix(in srgb, var(--aviso) 70%, transparent);
+}
+.ficha-subtitulo {
+  margin: 0 0 6px;
+  font-size: 0.85rem;
+}
+.ficha-referencias {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 4px;
+  font-size: 0.8rem;
+}
+
+/* ---------- Planetary Twin Explorer (fluxo do guia de mentoria) ---------- */
+
+.principal {
+  display: grid;
+  gap: 16px;
+}
+.explorador {
+  display: grid;
+  gap: 16px;
+}
+.titulo-secao {
+  margin: 8px 0 0;
+  font-size: 1.05rem;
+  color: var(--texto-suave);
+}
+.passo-cabecalho {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.passo-cabecalho h2 {
+  margin: 0;
+}
+.passo-cabecalho .ajuda {
+  margin: 2px 0 0;
+}
+.passo-numero {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: var(--primaria-suave);
+  border: 1px solid var(--primaria);
+  color: var(--texto);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.objetivos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+}
+.objetivo {
+  display: grid;
+  gap: 4px;
+  padding: 10px 12px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: var(--superficie-2);
+  cursor: pointer;
+  font-size: 0.86rem;
+}
+.objetivo input {
+  width: auto;
+  margin: 0;
+  justify-self: start;
+}
+.objetivo span {
+  color: var(--texto-suave);
+}
+.objetivo:hover {
+  border-color: var(--primaria);
+}
+.objetivo.ativo {
+  border-color: var(--primaria);
+  background: var(--primaria-suave);
+  box-shadow: inset 0 0 0 1px var(--primaria);
+}
+.formula {
+  margin: 0;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.9rem;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: var(--superficie-2);
+  overflow-x: auto;
+}
+.caixa-novo {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid color-mix(in srgb, var(--aviso) 60%, transparent);
+  background: color-mix(in srgb, var(--aviso) 10%, transparent);
+  font-size: 0.86rem;
+}
+.tabela-ranking td,
+.tabela-ranking th {
+  vertical-align: top;
+}
+.tabela-ranking .linha-ativa {
+  background: var(--primaria-suave);
+}
+.linha-detalhe > td {
+  background: var(--superficie-2);
+}
+.acoes-explorar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.acoes-explorar > span:first-child:not(.selo) {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* Mapa */
+.mapa-candidatos {
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+.mapa-candidatos-area {
+  height: min(52vh, 460px);
+  min-height: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--borda);
+}
+.marcador {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.6);
+}
+.marcador-candidato {
+  border-radius: 2px;
+  transform: rotate(45deg);
+}
+.marcador-novo {
+  outline: 3px solid var(--aviso);
+  outline-offset: 2px;
+}
+.marcador-selecionado {
+  width: 22px;
+  height: 22px;
+  border-width: 3px;
+}
+.legenda-mapa {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+}
+.legenda-rampa-distancia {
+  display: inline-flex;
+  gap: 2px;
+}
+.legenda-rampa-distancia span {
+  width: 18px;
+  height: 10px;
+  border-radius: 2px;
+}
+.forma-legenda {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 4px;
+  border: 2px solid var(--texto);
+  vertical-align: middle;
+}
+.forma-referencia {
+  border-radius: 50%;
+}
+.forma-candidato {
+  border-radius: 1px;
+  transform: rotate(45deg);
+}
+
+/* Passaporte */
+.passaporte-campos {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 10px 14px;
+  font-size: 0.88rem;
+}
+.passaporte-campos dt {
+  font-weight: 700;
+}
+.passaporte-campos dd {
+  margin: 0;
+  min-width: 0;
+}
+.passaporte-campos ul {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 4px;
+}
+.lista-rotas code {
+  font-size: 0.78rem;
+  word-break: break-all;
+}
+@media (max-width: 700px) {
+  .passaporte-campos {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Passos 02 (alvo) e 03 (buscar) lado a lado; empilham no celular */
+.passos-lado {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 16px;
+}
+.passos-lado > .painel {
+  align-content: start;
+}
+@media (max-width: 900px) {
+  .passos-lado {
+    grid-template-columns: 1fr;
+  }
+}
+.botao-busca {
+  justify-self: start;
+  min-width: 220px;
+}
+
+/* Evidências do passaporte em tabela compacta */
+.tabela-evidencias td,
+.tabela-evidencias th {
+  vertical-align: top;
+  font-size: 0.84rem;
+}
+.tabela-evidencias .fonte-linha {
+  display: block;
+}
