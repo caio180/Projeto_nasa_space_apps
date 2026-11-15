@@ -1,8 +1,8 @@
-// Mapa dos candidatos da Terra para o alvo escolhido (MapLibre).
+// Mapa dos locais da Terra analisados para o alvo escolhido (MapLibre).
 // Fundo: mosaico Blue Marble do NASA GIBS (Earthdata), sem chave de acesso.
 // Cor = distância ponderada ao alvo (uma só cor, do mais claro = mais perto
 // ao mais escuro = mais longe). Forma = papel: círculo = referência da
-// literatura; losango = candidato novo (hipótese).
+// literatura; losango = análogo proposto (hipótese).
 
 import { useEffect, useRef } from 'react';
 import maplibregl from 'maplibre-gl';
@@ -94,7 +94,7 @@ export function MapaCandidatos({ linhas, selecionado, candidatoNovo, onSeleciona
     });
   }, [linhas, selecionado, candidatoNovo]);
 
-  // Centraliza no candidato escolhido.
+  // Centraliza no local escolhido.
   useEffect(() => {
     const l = linhas.find((x) => x.id === selecionado);
     if (l && mapaRef.current) mapaRef.current.flyTo({ center: [l.lon, l.lat], zoom: 4, speed: 1.4 });
@@ -102,7 +102,7 @@ export function MapaCandidatos({ linhas, selecionado, candidatoNovo, onSeleciona
 
   return (
     <figure className="mapa-candidatos">
-      <div ref={containerRef} className="mapa-candidatos-area" role="region" aria-label="Mapa dos candidatos" />
+      <div ref={containerRef} className="mapa-candidatos-area" role="region" aria-label="Mapa dos locais analisados" />
       <figcaption className="legenda-mapa">
         <span className="legenda-rampa-distancia" aria-hidden="true">
           {RAMPA_DISTANCIA.map((c) => (
@@ -114,7 +114,7 @@ export function MapaCandidatos({ linhas, selecionado, candidatoNovo, onSeleciona
           <span className="forma-legenda forma-referencia" aria-hidden="true" /> referência da literatura
         </span>
         <span>
-          <span className="forma-legenda forma-candidato" aria-hidden="true" /> candidato novo (hipótese)
+          <span className="forma-legenda forma-candidato" aria-hidden="true" /> análogo proposto (hipótese)
         </span>
       </figcaption>
     </figure>

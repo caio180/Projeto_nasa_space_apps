@@ -1273,3 +1273,50 @@ button:disabled {
 .tabela-evidencias .fonte-linha {
   display: block;
 }
+
+/* Resultado Geral (média dos critérios avaliados), no mesmo padrão das barras */
+.resultado-geral {
+  display: grid;
+  gap: 8px;
+  padding: 12px 14px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: var(--superficie-2);
+}
+.resultado-geral h3 {
+  margin: 0;
+}
+.resultado-geral-corpo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.resultado-geral-valor {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  background: none;
+}
+.resultado-geral-valor.nota-alta {
+  background: none;
+  color: var(--ok);
+}
+.resultado-geral-valor.nota-media {
+  background: none;
+  color: var(--aviso);
+}
+.resultado-geral-valor.nota-baixa {
+  background: none;
+  color: var(--falha);
+}
+.resultado-geral-texto {
+  flex: 1;
+  min-width: 220px;
+  display: grid;
+  gap: 6px;
+}
+.resultado-geral-texto .ajuda {
+  margin: 0;
+}

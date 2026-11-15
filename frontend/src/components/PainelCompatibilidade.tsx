@@ -1,9 +1,8 @@
-// Mostra a nota de cada critério (0 a 100, com a regra escrita), Terra × Marte/Lua,
-// as incompatibilidades com o provável motivo e os limites que a Terra não
-// reproduz. O cálculo é feito no backend (model/compatibilidadeModel.ts).
-// Não mostramos um "% geral": não existe percentual universal de "parecido com
-// Marte" (guia de mentoria). A ordem entre candidatos usa a distância ponderada
-// do objetivo escolhido (painel do ranking).
+// Mostra a nota de cada critério (0% a 100%, com a regra escrita), Terra × Marte/Lua,
+// o Resultado Geral (média dos critérios avaliados), as incompatibilidades com o
+// provável motivo e os limites que a Terra não reproduz. O cálculo é feito no
+// backend (model/compatibilidadeModel.ts). A ordem entre os locais analisados
+// continua usando a distância ponderada do objetivo escolhido (painel do ranking).
 
 import type { ResultadoCompatibilidade } from '../types.ts';
 
@@ -48,9 +47,8 @@ export function PainelCompatibilidade({ resultado, carregando, erro }: Props) {
       <div>
         <h2>Notas por critério</h2>
         <p className="ajuda">
-          {r.terra.nome} × {r.alvo.corpo} · {r.alvo.nome}. Cada critério vai de 0 a 100 pela regra escrita nele. Não
-          existe um “% de parecido com {r.alvo.corpo}” universal: para comparar candidatos, use a distância ponderada do
-          objetivo no ranking.
+          {r.terra.nome} × {r.alvo.corpo} · {r.alvo.nome}. Cada critério vai de 0% a 100% de semelhança, pela regra
+          escrita nele.
         </p>
       </div>
 
@@ -59,7 +57,7 @@ export function PainelCompatibilidade({ resultado, carregando, erro }: Props) {
           <li key={d.chave}>
             <div className="barra-topo">
               <span>{d.nome}</span>
-              <strong>{d.pontuacao === null ? 'sem dado' : `${d.pontuacao}/100`}</strong>
+              <strong>{d.pontuacao === null ? 'sem dado' : `${d.pontuacao}%`}</strong>
             </div>
             <div className="barra-trilho" aria-hidden="true">
               <div
@@ -79,6 +77,37 @@ export function PainelCompatibilidade({ resultado, carregando, erro }: Props) {
         ))}
       </ul>
 
+      {/* Resultado Geral: consolida todos os critérios avaliados acima. */}
+      <div className="resultado-geral">
+        <h3>Resultado Geral</h3>
+        <div className="resultado-geral-corpo">
+          <span className={`resultado-geral-valor ${classeNota(r.geral, limiar)}`}>
+            {r.geral === null ? '—' : `${r.geral}%`}
+          </span>
+          <div className="resultado-geral-texto">
+            <strong>
+              de similaridade entre {r.terra.nome} e {r.alvo.nome} ({r.alvo.corpo})
+            </strong>
+            <div className="barra-trilho" aria-hidden="true">
+              <div
+                className={`barra-preenchida ${classeNota(r.geral, limiar)}`}
+                style={{ width: `${r.geral ?? 0}%` }}
+              />
+            </div>
+            <span className="ajuda">
+              Média, com o mesmo peso, dos {r.dimensoes.filter((d) => d.pontuacao !== null).length} critérios com dado
+              {r.dimensoes.some((d) => d.pontuacao === null) &&
+                (() => {
+                  const n = r.dimensoes.filter((d) => d.pontuacao === null).length;
+                  return n === 1 ? ' (1 critério sem dado fica fora da conta)' : ` (${n} critérios sem dado ficam fora da conta)`;
+                })()}
+              .{r.foco !== null && ` Só nos critérios em que este análogo é forte: ${r.foco}%.`} Não inclui gravidade,
+              pressão e radiação, que nenhum lugar da Terra reproduz.
+            </span>
+          </div>
+        </div>
+      </div>
+
       {r.incompatibilidades.length > 0 && (
         <div className="incompatibilidades">
           <h3>Incompatibilidades detectadas (nota abaixo de {limiar}% ou sem dado)</h3>
@@ -86,7 +115,7 @@ export function PainelCompatibilidade({ resultado, carregando, erro }: Props) {
             {r.incompatibilidades.map((i) => (
               <li key={i.nome}>
                 <strong>
-                  {i.nome} — {i.pontuacao === null ? 'sem dado' : `${i.pontuacao}/100`}
+                  {i.nome} — {i.pontuacao === null ? 'sem dado' : `${i.pontuacao}%`}
                 </strong>
                 <p>{i.motivo}</p>
               </li>

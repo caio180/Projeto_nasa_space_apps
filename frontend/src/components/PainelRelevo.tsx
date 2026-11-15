@@ -116,7 +116,7 @@ const LINHAS: [string, (r: Relevo) => string][] = [
   ['Fonte', (r) => r.fonte],
 ];
 
-/** Pedido vindo do explorador: comparar um candidato do ranking com um alvo. */
+/** Pedido vindo do explorador: comparar um local do ranking com um alvo. */
 export interface PedidoComparacao {
   candidato: { id: string; lon: number; lat: number; nome: string; noCatalogo: boolean };
   localId: string;

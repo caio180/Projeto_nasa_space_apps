@@ -17,7 +17,7 @@ import { MapaCandidatos } from "./MapaCandidatos.tsx";
 import { PassaporteCientifico } from "./PassaporteCientifico.tsx";
 
 interface Props {
-  /** Abre a comparação detalhada (relevo 3D, fotos, ambiente) do candidato com o alvo. */
+  /** Abre a comparação detalhada (relevo 3D, fotos, ambiente) do local analisado com o alvo. */
   onComparar: (
     candidato: {
       id: string;
@@ -198,7 +198,7 @@ export function Explorador({ onComparar }: Props) {
             <div>
               <h2>Buscar análogos</h2>
               <p className="ajuda">
-                Mede todos os candidatos — referências da literatura e áreas sem
+                Mede todos os locais — referências da literatura e regiões sem
                 literatura — numa janela do mesmo tamanho da do alvo e no mesmo
                 pixel.
               </p>
@@ -210,11 +210,11 @@ export function Explorador({ onComparar }: Props) {
             onClick={buscar}
             disabled={carregando || !objetivos}
           >
-            {carregando ? "Medindo os candidatos…" : "Buscar análogos"}
+            {carregando ? "Medindo os locais…" : "Buscar análogos"}
           </button>
           {carregando && (
             <p className="ajuda">
-              A primeira busca consulta cada candidato nas APIs (relevo
+              A primeira busca consulta cada local nas APIs (relevo
               {objetivo !== "rover" ? ", clima, vegetação e solo" : ""}) e pode
               levar até 1–2 minutos. Depois fica em cache.
             </p>
@@ -256,7 +256,7 @@ export function Explorador({ onComparar }: Props) {
             </div>
             {ranking.candidatoNovo && (
               <div className="caixa-novo">
-                <strong>Candidato novo selecionado pelas medidas:</strong>{" "}
+                <strong>Novo análogo proposto pelas medidas:</strong>{" "}
                 {ranking.candidatoNovo.justificativa}
               </div>
             )}
@@ -266,7 +266,7 @@ export function Explorador({ onComparar }: Props) {
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Candidato</th>
+                    <th scope="col">Local analisado</th>
                     <th scope="col">Papel</th>
                     <th scope="col">D</th>
                     <th scope="col">Dado</th>
@@ -303,7 +303,7 @@ export function Explorador({ onComparar }: Props) {
                           >
                             {l.papel === "referencia"
                               ? "Referência"
-                              : "Candidato"}
+                              : "Proposto"}
                           </span>
                         </td>
                         <td>
@@ -441,7 +441,7 @@ export function Explorador({ onComparar }: Props) {
             <div className="passo-cabecalho">
               <span className="passo-numero">05</span>
               <div>
-                <h2>Explorar — mapa dos candidatos</h2>
+                <h2>Explorar — mapa dos locais analisados</h2>
                 <p className="ajuda">
                   Clique num ponto para ver o passaporte. O 3D fica na
                   comparação detalhada, abaixo.

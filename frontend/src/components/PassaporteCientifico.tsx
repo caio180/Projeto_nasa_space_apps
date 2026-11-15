@@ -1,4 +1,4 @@
-// 06 Concluir — passaporte científico do candidato (guia de mentoria, pág. 06):
+// 06 Concluir — passaporte científico do local analisado (guia de mentoria, pág. 06):
 // Referência · Métricas · Evidências (com proveniência de cada camada) ·
 // Diferenças · Aplicação (experimento proposto). Pode ser baixado em JSON
 // (para reprocessar) ou Markdown (para o relatório e o README). As rotas e os
@@ -38,7 +38,7 @@ export function paraMarkdown(p: Passaporte) {
     "## Referência",
     `- **Alvo:** ${p.referencia.alvo}`,
     `- **Objetivo:** ${p.referencia.objetivo} — ${p.referencia.pergunta}`,
-    `- **Candidato:** ${p.referencia.candidato} (lon ${p.referencia.coordenadas.lon}, lat ${p.referencia.coordenadas.lat})`,
+    `- **Local analisado:** ${p.referencia.candidato} (lon ${p.referencia.coordenadas.lon}, lat ${p.referencia.coordenadas.lat})`,
     `- **Papel:** ${p.referencia.papel}`,
     "",
     "## Métricas",
@@ -69,7 +69,7 @@ export function paraMarkdown(p: Passaporte) {
           "",
         ]
       : [
-          "**Literatura:** nenhum artigo trata este local como análogo (candidato novo).",
+          "**Literatura:** nenhum artigo trata este local como análogo (análogo proposto).",
           "",
         ]),
     "## Diferenças",
@@ -250,7 +250,7 @@ export function PassaporteCientifico({
                 </ul>
               ) : (
                 <p className="ajuda">
-                  Nenhum artigo trata este local como análogo: é um candidato
+                  Nenhum artigo trata este local como análogo: é um análogo proposto
                   novo, apoiado só nas medidas.
                 </p>
               )}
