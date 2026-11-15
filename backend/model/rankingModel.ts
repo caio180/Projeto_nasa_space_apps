@@ -290,14 +290,14 @@ export function calcularRanking(
     candidatoNovo: novo
       ? {
           id: novo.id,
-          justificativa: `${novo.nome} é o candidato sem literatura mais próximo de ${local.nome} para "${objetivo.nome}" (D = ${novo.distancia!.toLocaleString('pt-BR')}, ${novo.posicao}º de ${comDistancia}). Mais parecido em: ${novo.maisParecidos.join(' e ') || '—'}. Mais diferente em: ${novo.maisDiferente ?? '—'}. É uma HIPÓTESE: precisa de validação em campo antes de ser chamado de análogo.`,
+          justificativa: `${novo.nome} é o local sem literatura de análogo mais próximo de ${local.nome} para "${objetivo.nome}" (D = ${novo.distancia!.toLocaleString('pt-BR')}, ${novo.posicao}º de ${comDistancia}). Mais parecido em: ${novo.maisParecidos.join(' e ') || '—'}. Mais diferente em: ${novo.maisDiferente ?? '—'}. É uma HIPÓTESE: precisa de validação em campo antes de ser chamado de análogo.`,
         }
       : null,
     validacao,
     limites: [
       'Distância menor = mais parecido NOS CRITÉRIOS ESCOLHIDOS; não é probabilidade de equivalência.',
-      'A padronização usa a média e o desvio dos candidatos avaliados: incluir ou tirar candidatos muda os z, mas não a ordem de forma brusca.',
-      'Todos os candidatos são medidos numa janela do tamanho da do alvo, centrada no ponto da ficha; um ponto aproximado pode não ser o melhor trecho da região.',
+      'A padronização usa a média e o desvio dos locais avaliados: incluir ou tirar locais muda os z, mas não a ordem de forma brusca.',
+      'Todos os locais são medidos numa janela do tamanho da do alvo, centrada no ponto da ficha; um ponto aproximado pode não ser o melhor trecho da região.',
       'A busca cobre o catálogo (referências da literatura) e 5 áreas do Brasil sem literatura de análogo; não é uma varredura do planeta inteiro.',
     ],
   };

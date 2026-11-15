@@ -181,7 +181,7 @@ export async function passaporte(objetivoId: unknown, localId: unknown, candidat
   if (typeof localId !== 'string') throw new AppError(400, 'Informe ?local=<id>.');
   const local = obterLocal(localId);
   const candidato = CANDIDATOS.find((c) => c.id === candidatoId);
-  if (!candidato) throw new AppError(404, `Candidato "${String(candidatoId)}" não existe. Veja GET /api/ranking.`);
+  if (!candidato) throw new AppError(404, `Local "${String(candidatoId)}" não existe. Veja GET /api/ranking.`);
 
   const ranking = await rankingDe(objetivo.id, local.id);
   const linha = ranking.linhas.find((l) => l.id === candidato.id)!;
@@ -214,7 +214,7 @@ export async function passaporte(objetivoId: unknown, localId: unknown, candidat
       papel:
         candidato.papel === 'referencia'
           ? 'Referência conhecida (estudada na literatura)'
-          : 'Candidato novo — hipótese a validar em campo',
+          : 'Análogo proposto — hipótese a validar em campo',
       coordenadas: { lon: candidato.lon, lat: candidato.lat },
     },
     metricas: {
@@ -257,7 +257,7 @@ export async function passaporte(objetivoId: unknown, localId: unknown, candidat
         `GET /api/locais/${local.id}/relevo?resolucao=128`,
       ],
       codigo: ['backend/model/objetivosModel.ts', 'backend/model/rankingModel.ts', 'backend/model/validacaoModel.ts'],
-      parametros: `resolução 128 px; janela ${ladoDoLocal(local)} km; padronização z sobre ${ranking.validacao.total} candidatos; pesos em objetivosModel.ts`,
+      parametros: `resolução 128 px; janela ${ladoDoLocal(local)} km; padronização z sobre ${ranking.validacao.total} locais; pesos em objetivosModel.ts`,
     },
   };
 }
