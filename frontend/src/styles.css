@@ -1129,6 +1129,14 @@ button:disabled {
 .tabela-ranking th {
   vertical-align: top;
 }
+/* Nome do local quebra em duas linhas em vez de alargar a tabela (vale para todas as telas). */
+.tabela-ranking .link {
+  white-space: normal;
+  text-align: left;
+}
+.tabela-ranking td:last-child .link {
+  white-space: nowrap;
+}
 .tabela-ranking .linha-ativa {
   background: var(--primaria-suave);
 }
@@ -1319,4 +1327,149 @@ button:disabled {
 }
 .resultado-geral-texto .ajuda {
   margin: 0;
+}
+
+/* =====================================================================
+   Responsivo: o MESMO layout para computador e celular.
+   1) Regras para todas as telas que só impedem transbordo (não mudam o
+      visual do computador): colunas de grade com minmax(0, 1fr), para a
+      largura vir da tela e não da tabela mais larga.
+   2) Ajustes só para telas pequenas (≤ 700 px).
+   ===================================================================== */
+
+.principal,
+.explorador,
+.coluna-lateral,
+.coluna-principal,
+.painel {
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (max-width: 900px) {
+  .colunas {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+/* Textos longos (links, rotas, nomes de produto) quebram em vez de alargar a página. */
+.ajuda,
+.fonte-linha,
+.caixa-novo,
+.caixa-ok,
+.alerta,
+.passaporte-campos dd,
+.ficha-referencias,
+.limitacoes,
+.fontes li,
+.equipamento-notas li,
+.passos-metodo li {
+  overflow-wrap: anywhere;
+}
+.painel-topo {
+  flex-wrap: wrap;
+}
+
+@media (max-width: 700px) {
+  .app {
+    padding: 12px 10px 32px;
+  }
+  .painel {
+    padding: 12px;
+    gap: 10px;
+  }
+  .cabecalho {
+    margin-bottom: 12px;
+  }
+  /* Campos com 16 px: o iPhone não dá zoom sozinho ao tocar num campo. */
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+  /* Botões e links de ação com área de toque confortável. */
+  .botao-primario,
+  .botao-secundario {
+    min-height: 44px;
+  }
+  .botao-busca {
+    width: 100%;
+    justify-self: stretch;
+  }
+  .acoes-explorar .botao-secundario {
+    flex: 1 1 auto;
+  }
+  .passo-cabecalho {
+    gap: 10px;
+  }
+  .passo-numero {
+    width: 30px;
+    height: 30px;
+    font-size: 0.85rem;
+  }
+  .objetivos {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  /* Tabelas: rolam de lado dentro do cartão, em vez de espremer as colunas. */
+  .tabela-rolagem {
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -2px;
+  }
+  .tabela-rolagem > .tabela-comparacao {
+    min-width: 560px;
+    font-size: 0.82rem;
+  }
+  .tabela-comparacao th,
+  .tabela-comparacao td {
+    padding: 6px 8px;
+  }
+  /* Ranking no celular: some a coluna de texto longo ("mais parecido · mais diferente"),
+     que continua em "Ver cálculo"; o resto cabe na tela sem rolar de lado. */
+  .tabela-rolagem > .tabela-ranking {
+    min-width: 0;
+  }
+  .tabela-ranking > thead > tr > th:nth-child(5),
+  .tabela-ranking > tbody > tr:not(.linha-detalhe) > td:nth-child(5),
+  .tabela-ranking > thead > tr > th:nth-child(6),
+  .tabela-ranking > tbody > tr:not(.linha-detalhe) > td:nth-child(6) {
+    display: none;
+  }
+  .tabela-ranking .selo {
+    font-size: 0.7rem;
+    padding: 1px 6px;
+  }
+  /* 3D, mapa e fotos: altura que cabe na tela do celular. */
+  .relevo-3d,
+  .relevo-vazio,
+  .comparacao .relevo-3d {
+    height: 300px;
+    min-height: 260px;
+  }
+  .mapa-candidatos-area {
+    height: 320px;
+    min-height: 260px;
+  }
+  .relevo-buracos-legenda {
+    max-width: calc(100% - 24px);
+    top: auto;
+    bottom: 38px;
+    right: 10px;
+  }
+  .controles-visualizacao {
+    width: 100%;
+  }
+  .trilho-exagero input {
+    width: 100%;
+  }
+  .controle-exagero {
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .resultado-geral-valor {
+    font-size: 2rem;
+  }
+  .legenda-mapa {
+    gap: 6px 12px;
+  }
+  .dica-grafico {
+    white-space: normal;
+    max-width: 220px;
+  }
 }
