@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "typecheck": "tsc --noEmit",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:azure": "tsc --noEmit && vite build --outDir ../backend/public --emptyOutDir"
   },
   "dependencies": {
     "maplibre-gl": "5.24.0",

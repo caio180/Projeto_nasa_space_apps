@@ -26,10 +26,19 @@ export class ErroApi extends Error {
   }
 }
 
+/**
+ * Endereço do backend.
+ * - Vazio (padrão): a API está no MESMO endereço do site — um serviço só no Render,
+ *   ou o proxy do Vite em desenvolvimento.
+ * - Front e back hospedados separados: defina VITE_API_URL no build do frontend,
+ *   por exemplo https://planetmatch-api.onrender.com (sem barra no fim).
+ */
+const BASE_API = (import.meta.env.VITE_API_URL ?? '').replace(/\/+$/, '');
+
 async function chamar<T>(metodo: 'GET' | 'POST', url: string, corpo?: unknown): Promise<T> {
   let res: Response;
   try {
-    res = await fetch(url, {
+    res = await fetch(`${BASE_API}${url}`, {
       method: metodo,
       headers: corpo ? { 'Content-Type': 'application/json' } : undefined,
       body: corpo ? JSON.stringify(corpo) : undefined,
